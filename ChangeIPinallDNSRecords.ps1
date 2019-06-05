@@ -1,5 +1,5 @@
 # Set these Variables!
-$oldip = "0.0.0.0" # enter the ip entries you want to change
+$oldip = "0.0.0.0" # enter the ip you want to change
 $newip = "1.1.1.1" # enter the ip you want it changed to
 
 
@@ -57,7 +57,7 @@ foreach ($zone in $zones) {
             write-host "Changing A Record:" $record.HostName
 
             # create new object with information from old 
-		    $newobj = get-dnsserverresourcerecord $zone -rrtype "A" -name $record.HostName | where {$_.RecordData.IPv4Address -eq $oldip -and -not $_.TimeStamp}
+	    $newobj = get-dnsserverresourcerecord $zone -rrtype "A" -name $record.HostName | where {$_.RecordData.IPv4Address -eq $oldip -and -not $_.TimeStamp}
             
             # fill in the new IP 
             $newobj.RecordData.IPv4Address=[System.Net.IPAddress]::parse($newip)
